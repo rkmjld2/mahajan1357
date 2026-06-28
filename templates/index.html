@@ -1,1 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tasty Haveli - AI Assistant</title>
+    <style>
+        :root {
+            --primary: #c0392b;
+            --primary-dark: #a93226;
+            --light: #f9f9f9;
+            --dark: #2c3e50;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 30px 15px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 620px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        .content {
+            padding: 30px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.1rem;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: var(--primary-dark);
+        }
+        .answer-box {
+            margin-top: 35px;
+            padding: 22px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .flash {
+            padding: 12px 20px;
+            margin: 15px 30px;
+            border-radius: 6px;
+        }
+        .flash.warning { background: #fff3cd; color: #856404; }
+        .flash.danger  { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <div class="header">
+        <h1>🍛 Tasty Haveli</h1>
+        <p>AI Restaurant Assistant</p>
+    </div>
+
+    <div class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Select a common question:</label>
+                <select name="question">
+                    <option value="">-- Choose one --</option>
+                    <option>What type of cuisine do you serve?</option>
+                    <option>What are your special dishes?</option>
+                    <option>What are your opening hours?</option>
+                    <option>Do you have Chinese food?</option>
+                    <option>What's the average cost for two?</option>
+                    <option>Do you have home delivery?</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Or ask anything...</label>
+                <input type="text" name="custom_question" 
+                       placeholder="Example: Do you serve paneer butter masala?"
+                       autocomplete="off">
+            </div>
+
+            <button type="submit">Ask AI →</button>
+        </form>
+
+        {% if answer %}
+        <div class="answer-box">
+            <strong>Our AI Waiter says:</strong><br><br>
+            {{ answer | safe }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tasty Haveli - AI Assistant</title>
+    <style>
+        :root {
+            --primary: #c0392b;
+            --primary-dark: #a93226;
+            --light: #f9f9f9;
+            --dark: #2c3e50;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 30px 15px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 620px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        .content {
+            padding: 30px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.1rem;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: var(--primary-dark);
+        }
+        .answer-box {
+            margin-top: 35px;
+            padding: 22px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .flash {
+            padding: 12px 20px;
+            margin: 15px 30px;
+            border-radius: 6px;
+        }
+        .flash.warning { background: #fff3cd; color: #856404; }
+        .flash.danger  { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🍛 Tasty Haveli</h1>
+        <p>AI Restaurant Assistant</p>
+    </div>
+
+    <div class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Select a common question:</label>
+                <select name="question">
+                    <option value="">-- Choose one --</option>
+                    <option>What type of cuisine do you serve?</option>
+                    <option>What are your special dishes?</option>
+                    <option>What are your opening hours?</option>
+                    <option>Do you have Chinese food?</option>
+                    <option>What's the average cost for two?</option>
+                    <option>Do you have home delivery?</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Or ask anything...</label>
+                <input type="text" name="custom_question" 
+                       placeholder="Example: Do you serve paneer butter masala?"
+                       autocomplete="off">
+            </div>
+
+            <button type="submit">Ask AI →</button>
+        </form>
+
+        {% if answer %}
+        <div class="answer-box">
+            <strong>Our AI Waiter says:</strong><br><br>
+            {{ answer | safe }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
